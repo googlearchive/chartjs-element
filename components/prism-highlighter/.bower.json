@@ -1,0 +1,29 @@
+{
+  "name": "prism-highlighter",
+  "description": "Prism-based syntax highlighting.",
+  "version": "0.8.3",
+  "authors": [
+    "The Polymer Project Authors (https://polymer.github.io/AUTHORS.txt)"
+  ],
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "https://github.com/PolymerElements/prism-highlighter",
+  "main": "prism-highlighter.html",
+  "ignore": [
+    "/.*",
+    "/test/",
+    "/demo/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#v0.8.0-rc.7",
+    "prism": "*"
+  },
+  "_release": "0.8.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.8.3",
+    "commit": "d93bf31664d455f87dc8c1289c180cd517af2e93"
+  },
+  "_source": "git://github.com/PolymerElements/prism-highlighter.git",
+  "_target": "^0.8.1",
+  "_originalSource": "PolymerElements/prism-highlighter"
+}
