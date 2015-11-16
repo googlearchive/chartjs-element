@@ -12,5 +12,6 @@
     "iron-component-page": "PolymerElements/iron-component-page#master",
     "chartjs": "*"
   },
-  "main": "chartjs-element.html"
+  "main": "chartjs-element.html",
+  "ignore": []
 }
