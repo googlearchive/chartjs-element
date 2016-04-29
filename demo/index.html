@@ -13,7 +13,14 @@
 
   <title>ChartJS</title>
 
-  <script src="../../webcomponentsjs/webcomponents.js"></script>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script>
+    /* this script must run before Polymer is imported */
+    window.Polymer = {
+      dom: 'shadow',
+      lazyRegister: true
+    };
+  </script>
   <link rel="import" href="../chartjs-element.html">
 
   <style>
