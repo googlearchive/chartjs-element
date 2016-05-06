@@ -36,16 +36,98 @@
 </head>
 
 <body>
-
+<span id="browser-sync-binding"></span>
 <chartjs-element></chartjs-element>
-<chartjs-element kind="line" colors='["ff0000"]'></chartjs-element>
-<chartjs-element kind="radar" data='{"name": "Fruits", "data": [6, 12, 30, 16], "labels": ["Apples", "Bananas", "Cherries", "Dates"]}' colors='["008000"]'></chartjs-element>
-<chartjs-element kind="pie" data='{"data": [6, 12, 30, 16], "labels": ["Apples", "Bananas", "Cherries", "Dates"]}' colors='["DB00DB", "FF0000", "00FF00", "0000FF"]'></chartjs-element>
-<chartjs-element kind="doughnut" data='{"data": [6, 12, 30, 16], "labels": ["Apples", "Bananas", "Cherries", "Dates"]}' colors='["DFE32D", "FF0000", "00FF00", "0000FF"]'></chartjs-element>
-<chartjs-element kind="bubble" data='{"name": "Bubble", "data": [{"x": 3, "y": 3, "r": 10}, {"x": 4, "y": 4, "r": 30}, {"x": 6, "y": 4, "r": 15}, {"x": 8, "y": 5, "r": 4}]}' colors='["1B85B8", "FF0000", "00FF00", "0000FF"]'></chartjs-element>
-<chartjs-element kind="polarArea" data='{"data": [6, 12, 30, 16], "labels": ["Apples", "Bananas", "Cherries", "Dates"]}' colors='["5757FF", "FF0000", "00FF00", "0000FF"]'></chartjs-element>
-<chartjs-element kind="scatter" data='{"name": "Fruits", "data": [6, 12, 30, 16], "labels": ["Apples", "Bananas", "Cherries", "Dates"]}' colors='["06DCFB", "FF0000", "00FF00", "0000FF"]'></chartjs-element>
-<chartjs-element kind="bar" data='{"name": "Fruits", "data": [6, 12, 30, 16], "labels": ["Apples", "Bananas", "Cherries", "Dates"]}' colors='["59DF00", "FF0000", "00FF00", "0000FF"]'></chartjs-element>
+<chartjs-element id="line-chart"></chartjs-element>
+<chartjs-element id="radar-chart"></chartjs-element>
+<chartjs-element id="pie-chart"></chartjs-element>
+<chartjs-element id="doughnut-chart"></chartjs-element>
+<chartjs-element id="bubble-chart"></chartjs-element>
+<chartjs-element id="polar-area-chart"></chartjs-element>
+<chartjs-element id="scatter-chart"></chartjs-element>
+<chartjs-element id="bar-chart"></chartjs-element>
 
 </body>
+
+<script>
+  (function() {
+    var doughnutChart = document.querySelector('#doughnut-chart');
+    var doughnutChartColors = ["DFE32D", "FF0000", "00FF00", "0000FF"];
+    doughnutChart.datasets = [];
+    doughnutChart.datasets.push({data: [6, 12, 30, 16], name: "city", colors: doughnutChartColors});
+    doughnutChart.datasets.push({data: [3, 6, 9, 12], name: "province", colors: doughnutChartColors});
+    doughnutChart.labels = ["Chapels", "Bananas", "Cherries", "Dates"];
+    doughnutChart.kind= "doughnut";
+  })();
+
+  (function() {
+    var lineChart = document.querySelector('#line-chart');
+    lineChart.datasets = [];
+    lineChart.datasets.push({data: [6, 12, 20, 16], name: "city", colors: ["DFE32D"]});
+    lineChart.datasets.push({data: [3, 6, 9, 12], name: "province", colors: ["FF0000"]});
+    lineChart.datasets.push({data: [3, 4, 5, 3], name: "village", colors: ["00FF00"]});
+    lineChart.datasets.push({data: [9, 6, 3, 14], name: "coast", colors: ["0000FF"]});
+    lineChart.datasets.push({data: [2, 9, 3, 5], name: "mountain", colors: ["F000F0"]});
+    lineChart.labels = ["Chapels", "Bananas", "Cherries", "Dates"];
+    lineChart.kind= "line";
+  })();
+
+  (function() {
+    var radarChart = document.querySelector('#radar-chart');
+    radarChart.datasets = [];
+    radarChart.datasets.push({data: [6, 12, 20, 16], name: "city", colors: ["008000"]});
+    radarChart.datasets.push({data: [3, 6, 9, 12], name: "province", colors: ["FF0000"]});
+    radarChart.labels = ["Chapels", "Bananas", "Cherries", "Dates"];
+    radarChart.kind= "radar";
+  })();
+
+  (function() {
+    var pieChart = document.querySelector('#pie-chart');
+    var pieChartColors = ["DB00DB", "FF0000", "00FF00", "0000FF"];
+    pieChart.datasets = [];
+    pieChart.datasets.push({data: [6, 12, 20, 16], name: "city", colors: pieChartColors});
+    pieChart.datasets.push({data: [3, 6, 9, 12], name: "province", colors: pieChartColors});
+    pieChart.labels = ["Chapels", "Bananas", "Cherries", "Dates"];
+    pieChart.kind= "pie";
+  })();
+
+  (function() {
+    data={"name": "Bubble"}
+    var bubbleChart = document.querySelector('#bubble-chart');
+    var bubbleChartColors = ["1B85B8", "FF0000", "00FF00", "0000FF"];
+    bubbleChart.datasets = [];
+    bubbleChartData = [{"x": 3, "y": 3, "r": 10}, {"x": 4, "y": 4, "r": 30}, {"x": 6, "y": 4, "r": 15}, {"x": 8, "y": 5, "r": 4}];
+    bubbleChart.datasets.push({data: bubbleChartData, name: "Fruits", colors: bubbleChartColors});
+    bubbleChart.labels = ["Chapels", "Bananas", "Cherries", "Dates"];
+    bubbleChart.kind= "bubble";
+  })();
+
+  (function() {
+    var polarAreaChart = document.querySelector('#polar-area-chart');
+    var polarChartColors=["5757FF", "FF0000", "00FF00", "0000FF"];
+    polarAreaChart.datasets = [];
+    polarAreaChart.datasets.push({data: [6, 12, 20, 16], name: "city", colors: polarChartColors});
+    polarAreaChart.labels = ["Chapels", "Bananas", "Cherries", "Dates"];
+    polarAreaChart.kind= "polarArea";
+  })();
+
+  (function() {
+    var scatterChart = document.querySelector('#scatter-chart');
+    scatterChart.datasets = [];
+    scatterChart.datasets.push({data: [6, 12, 20, 16], name: "city", colors: ["06DCFB"], fill: true});
+    scatterChart.datasets.push({data: [15, 14, 13, 12], name: "province", colors: ["FF0000"], fill: true});
+    scatterChart.labels = ["Chapels", "Bananas", "Cherries", "Dates"];
+    scatterChart.kind= "scatter";
+  })();
+
+  (function() {
+    var barChart = document.querySelector('#bar-chart');
+    barChart.datasets = [];
+    barChart.datasets.push({data: [6, 12, 20, 16], name: "city", colors: ["59DF00"]});
+    barChart.datasets.push({data: [3, 6, 9, 12], name: "province", colors: ["FF0000"]});
+    barChart.labels = ["Chapels", "Bananas", "Cherries", "Dates"];
+    barChart.kind= "bar";
+  })();
+
+</script>
 </html>

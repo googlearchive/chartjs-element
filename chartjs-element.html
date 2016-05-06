@@ -53,18 +53,19 @@ license that can be found in the LICENSE file.
 
       properties: {
 
-        colors: {
+        labels: {
           type: Array,
-          value: ['#AABBDD']
+          value: ['January','February','March','April','May','June','July']
         },
 
-        data: {
-          type: Object,
-          value: {
-            labels: ['January','February','March','April','May','June','July'],
+        datasets: {
+          type: Array,
+          value: [{
+            colors: ['#FF6384'],
             data: [28,48,40,19,96,27,100],
-            name: 'chart'
-          }
+            name: 'chart',
+            fill: true
+          }]
         },
 
         options: {
@@ -81,7 +82,7 @@ license that can be found in the LICENSE file.
 
         _chartData: {
           type: Object,
-          computed: '_computeChartData(data, colors)'
+          computed: '_computeChartData(datasets, labels)'
         },
 
         chart: {
@@ -114,24 +115,24 @@ license that can be found in the LICENSE file.
         }
       },
 
-      _computeChartData: function(data, colors) {
-        if (data) {
-          var labels = data.labels;
-          var dataPts = data.data;
-          var dataName = data.name;
-        }
+      _computeChartData: function(datasets, labels) {
+        var dataPts = [];
 
-        var rgbColors = colors.map(this.hexToRgb).map(this.rgbToString);
-        var dataset = {
-          backgroundColor : rgbColors.length == 1 ? rgbColors[0] : rgbColors,
-          pointHoverColor : rgbColors.length == 1 ? rgbColors[0] : rgbColors,
-          pointBorderColor: '#fff',
-          data: dataPts,
-          label: dataName
-        };
+        datasets.forEach(d => {
+          var rgbColors = d.colors.map(this.hexToRgb).map(this.rgbToString);
+          dataPts.push({
+            fill: d.fill == undefined ? false : d.fill,
+            backgroundColor : rgbColors.length == 1 ? rgbColors[0] : rgbColors,
+            borderColor : rgbColors.length == 1 ? rgbColors[0] : '#ffffff',
+            pointHoverColor : rgbColors.length == 1 ? rgbColors[0] : rgbColors,
+            pointBorderColor: rgbColors.length == 1 ? rgbColors[0] : rgbColors,
+            data: d.data,
+            label: d.name
+          });
+        });
         return {
           labels: labels,
-          datasets: [dataset]
+          datasets: dataPts
         };
       },
 
