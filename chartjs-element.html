@@ -113,9 +113,10 @@ license that can be found in the LICENSE file.
 
       _computeChartData: function(datasets, labels) {
         var dataPts = [];
+        var that = this;
 
-        datasets.forEach(d => {
-          var rgbColors = d.colors.map(this.hexToRgb).map(this.rgbToString);
+        datasets.forEach(function(d) {
+          var rgbColors = d.colors.map(that.hexToRgb).map(that.rgbToString);
           dataPts.push({
             fill: d.fill == undefined ? false : d.fill,
             backgroundColor : rgbColors.length == 1 ? rgbColors[0] : rgbColors,
