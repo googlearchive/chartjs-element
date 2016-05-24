@@ -7,10 +7,10 @@
     "wrapper"
   ],
   "dependencies": {
-    "webcomponentsjs": "Polymer/webcomponentsjs#0.6",
-    "polymer": "Polymer/polymer#0.8.0-rc.7",
-    "iron-component-page": "PolymerElements/iron-component-page#master",
-    "chartjs": "*"
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
+    "polymer": "Polymer/polymer#^1.1.0",
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "chartjs": "^1.0.0"
   },
   "main": "chartjs-element.html",
   "ignore": []
