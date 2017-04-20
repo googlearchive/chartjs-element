@@ -29,7 +29,7 @@ license that can be found in the LICENSE file.
  @license Three-clause BSD
 -->
 
-<dom-module name="chartjs-element">
+<dom-module id="chartjs-element">
 
   <style>
     :host {
@@ -41,7 +41,7 @@ license that can be found in the LICENSE file.
 
   <template>
 
-    <canvas id="chart" width="{{width}}" height="{{height}}"></canvas>
+    <div><canvas id="chart" width="{{width}}" height="{{height}}"></canvas></div>
 
   </template>
 
@@ -53,17 +53,19 @@ license that can be found in the LICENSE file.
 
       properties: {
 
-        color: {
-          type: String,
-          value: '#AABBDD'
+        labels: {
+          type: Array,
+          value: ['January','February','March','April','May','June','July']
         },
 
-        data: {
-          type: Object,
-          value: {
-            labels: ['January','February','March','April','May','June','July'],
-            data: [28,48,40,19,96,27,100]
-          }
+        datasets: {
+          type: Array,
+          value: [{
+            colors: ['#FF6384'],
+            data: [28,48,40,19,96,27,100],
+            name: 'chart',
+            fill: true
+          }]
         },
 
         options: {
@@ -74,18 +76,17 @@ license that can be found in the LICENSE file.
         kind: {
           type: String,
           value: function() {
-            return ['Radar', 'Line', 'Bar'][Math.floor(Math.random()*3)];
+            return ['radar', 'line', 'bar'][Math.floor(Math.random()*3)];
           }
         },
 
         _chartData: {
           type: Object,
-          computed: '_computeChartData(data, color)'
+          computed: '_computeChartData(datasets, labels)'
         },
 
         chart: {
           type: Object,
-          observer: '_chartChanged',
           computed: '_computeChart(kind, options, ctx, _chartData)'
         }
 
@@ -104,34 +105,36 @@ license that can be found in the LICENSE file.
       },
 
       _computeChart: function(kind, options, ctx, _chartData) {
-        var chart = new Chart(ctx);
-        var factory = chart[kind] || chart.Line;
-        return factory.call(chart, _chartData, options);
+        if (this.chart) {
+          this.chart.destroy();
+        }
+        return new Chart(ctx, {type: kind, data: _chartData, options: options})
       },
 
-      _chartChanged: function(chart, old) {
-        if (old) {
-          old.destroy();
-        }
-      },
+      _computeChartData: function(datasets, labels) {
+        var dataPts = [];
+        var that = this;
 
-      _computeChartData: function(data, color) {
-        if (data) {
-          var labels = data.labels;
-          var dataPts = data.data;
-        }
-        var rgbColor = this.hexToRgb(color).join(',');
-        var dataset = {
-          fillColor : 'rgba(' + rgbColor + ', 0.5)',
-          strokeColor : 'rgba(' + rgbColor + ', 1)',
-          pointColor : 'rgba(' + rgbColor + ', 1)',
-          pointStrokeColor: '#fff',
-          data: dataPts
-        };
+        datasets.forEach(function(d) {
+          var rgbColors = d.colors.map(that.hexToRgb).map(that.rgbToString);
+          dataPts.push({
+            fill: d.fill == undefined ? false : d.fill,
+            backgroundColor : rgbColors.length == 1 ? rgbColors[0] : rgbColors,
+            borderColor : rgbColors.length == 1 ? rgbColors[0] : '#ffffff',
+            pointHoverColor : rgbColors.length == 1 ? rgbColors[0] : rgbColors,
+            pointBorderColor: rgbColors.length == 1 ? rgbColors[0] : rgbColors,
+            data: d.data,
+            label: d.name
+          });
+        });
         return {
           labels: labels,
-          datasets: [dataset]
+          datasets: dataPts
         };
+      },
+
+      rgbToString: function(array) {
+        return 'rgba(' + array.join(',') + ', 0.5)'
       },
 
       hexToRgb: function(hex) {
